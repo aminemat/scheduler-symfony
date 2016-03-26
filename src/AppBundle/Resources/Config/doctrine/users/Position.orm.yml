@@ -1,0 +1,14 @@
+Domain\Users\Entities\Position:
+    type: entity
+    table: position
+    id:
+        id:
+            type: uuid
+            generator:
+                strategy: CUSTOM 
+            customIdGenerator:
+                class: Ramsey\Uuid\Doctrine\UuidGenerator
+    fields:
+        name:
+            type: string
+            length: 100

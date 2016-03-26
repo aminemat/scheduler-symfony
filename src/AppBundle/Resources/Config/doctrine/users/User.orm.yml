@@ -1,0 +1,26 @@
+Domain\Users\Entities\User:
+    type: entity
+    table: user
+    id:
+        id:
+            type: uuid
+            generator:
+                strategy: CUSTOM 
+            customIdGenerator:
+                class: Ramsey\Uuid\Doctrine\UuidGenerator
+    fields:
+        name:
+            type: string
+            length: 100
+            
+        email:
+            type: string
+            length: 100
+            unique: true
+
+    oneToOne:
+        position:
+            targetEntity: Position
+            joinColumn:
+                name: position_id
+                referencedColumnName: id

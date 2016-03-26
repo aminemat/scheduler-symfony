@@ -1,0 +1,28 @@
+Domain\Shifts\Entities\Shift:
+    type: entity
+    table: shift
+    id:
+        id:
+            type: uuid
+            generator:
+                strategy: CUSTOM 
+            customIdGenerator:
+                class: Ramsey\Uuid\Doctrine\UuidGenerator
+    fields:
+        startTime:
+            type: date
+            
+        endTime:
+            type: date
+
+        status:
+            type: string
+            length: 100            
+            
+
+    manyToOne:
+        user:
+            targetEntity: Domain\Users\Entities\User
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
