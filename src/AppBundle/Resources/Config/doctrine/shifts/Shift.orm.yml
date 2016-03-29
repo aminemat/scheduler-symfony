@@ -10,10 +10,10 @@ Domain\Shifts\Entities\Shift:
                 class: Ramsey\Uuid\Doctrine\UuidGenerator
     fields:
         startTime:
-            type: date
+            type: datetime
             
         endTime:
-            type: date
+            type: datetime
 
         status:
             type: string

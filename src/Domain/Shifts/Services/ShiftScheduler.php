@@ -3,7 +3,9 @@
 namespace Domain\Shifts\Services;
 
 use Domain\Shifts\Contracts\EventDispatcherInterface;
-use Domain\Users\Contracts\EmployeeRepositoryInterface;
+use Domain\Shifts\Services\Exceptions\UserNotAvailableException;
+use Domain\Users\Contracts\Exception\UserNotFoundException;
+use Domain\Users\Contracts\UserRepositoryInterface;
 use Domain\Shifts\Commands\ScheduleShiftCommand;
 use Domain\Shifts\Contracts\ShiftRepositoryInterface;
 use Domain\Shifts\Entities\Shift;
@@ -17,9 +19,9 @@ class ShiftScheduler
      */
     private $shiftRepository;
     /**
-     * @var EmployeeRepositoryInterface
+     * @var UserRepositoryInterface
      */
-    private $employeeRepository;
+    private $userRepository;
     /**
      * @var EventDispatcherInterface
      */
@@ -28,17 +30,17 @@ class ShiftScheduler
     /**
      * ShiftScheduler constructor.
      *
-     * @param ShiftRepositoryInterface    $shiftRepository
-     * @param EmployeeRepositoryInterface $employeeRepository
-     * @param EventDispatcherInterface    $eventDispatcher
+     * @param ShiftRepositoryInterface $shiftRepository
+     * @param UserRepositoryInterface  $userRepository
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         ShiftRepositoryInterface $shiftRepository,
-        EmployeeRepositoryInterface $employeeRepository,
+        UserRepositoryInterface $userRepository,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->shiftRepository = $shiftRepository;
-        $this->employeeRepository = $employeeRepository;
+        $this->userRepository = $userRepository;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -48,18 +50,25 @@ class ShiftScheduler
      * @param ScheduleShiftCommand $scheduleShiftCommand
      *
      * @return bool
+     * @throws UserNotAvailableException
+     * @throws UserNotFoundException
      */
     public function schedule(ScheduleShiftCommand $scheduleShiftCommand)
     {
-        $user = $this->employeeRepository->find($scheduleShiftCommand->getEmployeeId());
+        $startDate = $scheduleShiftCommand->to();
+        $endDate = $scheduleShiftCommand->from();
         
-        $shift = new Shift($user, $scheduleShiftCommand->from(), $scheduleShiftCommand->to());
-
-        if ($this->employeeRepository->cannotPerformShift($user, $shift)) {
-            $shift->markAsPending();
+        if ( ! $user = $this->userRepository->find($scheduleShiftCommand->getUserId())) {
+            throw new UserNotFoundException();
         }
 
+        if ( ! $this->userRepository->isAvailable($user, $startDate, $endDate)) {
+            throw new UserNotAvailableException();
+        }
+        
+        $shift = new Shift($user, $startDate, $endDate);
         $this->shiftRepository->save($shift);
+        
         $this->eventDispatcher->dispatch('shift.scheduled', new ShiftScheduledEvent($shift));
     }
 }

@@ -18,7 +18,7 @@ Domain\Users\Entities\User:
             length: 100
             unique: true
 
-    oneToOne:
+    ManyToMany:
         position:
             targetEntity: Position
             joinColumn:

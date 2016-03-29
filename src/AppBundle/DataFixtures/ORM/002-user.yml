@@ -1,0 +1,5 @@
+Domain\Users\Entities\User:
+               
+    user_{1..10}:
+        __construct: [<name()>, "@position*", <email()>]        
+        

@@ -37,6 +37,7 @@ class User
     {
         $this->name = $name;
         $this->position = $position;
+        $this->email = $email;
     }
 
     /**

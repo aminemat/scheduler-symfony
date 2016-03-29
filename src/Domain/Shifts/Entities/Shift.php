@@ -51,6 +51,7 @@ class Shift
         $this->startTime = $startTime;
         $this->endTime = $endTime;
         $this->user = $user;
+        $this->status = $status;
     }
     
     public function markAsPending()

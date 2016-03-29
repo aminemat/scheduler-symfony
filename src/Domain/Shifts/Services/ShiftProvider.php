@@ -33,7 +33,7 @@ class ShiftProvider
         return $this->shiftRepository->findAllInDateRange(
             $getShiftsCommand->getDateRange(),
             $getShiftsCommand->getLocationId(),
-            $getShiftsCommand->getEmployeeId()
+            $getShiftsCommand->getUserId()
         );
     }
 }

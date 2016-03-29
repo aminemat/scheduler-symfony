@@ -2,7 +2,7 @@
 
 namespace Domain\Users\Contracts\Exception;
 
-class EmployeeNotFoundException extends \Exception
+class UserNotFoundException extends \Exception
 {
 
 }

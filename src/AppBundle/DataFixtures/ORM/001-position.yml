@@ -1,0 +1,10 @@
+Domain\Users\Entities\Position:
+
+    position_cashier:
+        __construct: ["cachier"]
+        
+    position_manager:
+        __construct: ["manager"]        
+        
+    position_supervisor:
+        __construct: ["supervisor"]

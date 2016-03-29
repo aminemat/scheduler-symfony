@@ -14,7 +14,7 @@ class GetShiftsCommand
     /**
      * @var
      */
-    private $employeeId;
+    private $userId;
 
     /**
      * @var DateRange
@@ -25,13 +25,13 @@ class GetShiftsCommand
      * GetShiftsCommand constructor.
      *
      * @param int       $locationId
-     * @param int       $employeeId
+     * @param int       $userId
      * @param DateRange $dateRange
      */
-    public function __construct(DateRange $dateRange, $locationId, $employeeId = null)
+    public function __construct(DateRange $dateRange, $locationId, $userId = null)
     {
         $this->locationId = $locationId;
-        $this->employeeId = $employeeId;
+        $this->userId = $userId;
         $this->dateRange = $dateRange;
     }
 
@@ -46,9 +46,9 @@ class GetShiftsCommand
     /**
      * @return mixed
      */
-    public function getEmployeeId()
+    public function getUserId()
     {
-        return $this->employeeId;
+        return $this->userId;
     }
 
     /**

@@ -38,9 +38,9 @@ interface ShiftRepositoryInterface
      *
      * @param DateRange $dateRange
      * @param int       $locationId
-     * @param int|null  $employeeId
+     * @param int|null  $userId
      *
      * @return ShiftCollection
      */
-    public function findAllInDateRange(DateRange $dateRange, $locationId, $employeeId = null);
+    public function findAllInDateRange(DateRange $dateRange, $locationId, $userId = null);
 }
