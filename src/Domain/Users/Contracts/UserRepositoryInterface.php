@@ -3,7 +3,6 @@
 namespace Domain\Users\Contracts;
 
 use DateTime;
-use Domain\Users\Contracts\Exception\UserNotFoundException;
 use Domain\Users\Entities\User;
 
 interface UserRepositoryInterface
