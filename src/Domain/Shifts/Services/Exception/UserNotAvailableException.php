@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Shifts\Services\Exceptions;
+namespace Domain\Shifts\Services\Exception;
 
 class UserNotAvailableException extends \Exception
 {

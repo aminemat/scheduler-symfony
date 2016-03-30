@@ -34,7 +34,7 @@ class DoctrineUserRepository implements UserRepositoryInterface
      */
     public function find($userId)
     {
-        // TODO: Implement find() method.
+        return $this->entityManager->find(User::class, $userId);
     }
 
     /**
@@ -48,6 +48,6 @@ class DoctrineUserRepository implements UserRepositoryInterface
      */
     public function isAvailable(User $user, $startDate, $endDate)
     {
-        // TODO: Implement isAvailable() method.
+        return true;
     }
 }

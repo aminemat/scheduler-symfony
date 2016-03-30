@@ -13,7 +13,7 @@ class Shift
      * @var Uuid
      */
     private $id;
-    
+
     /**
      * @var DateTime
      */
@@ -53,9 +53,49 @@ class Shift
         $this->user = $user;
         $this->status = $status;
     }
-    
+
     public function markAsPending()
     {
         $this->status == ShiftStatus::PENDING();
+    }
+
+    /**
+     * @return Uuid
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getStartTime()
+    {
+        return $this->startTime;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @return ShiftStatus
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getEndTime()
+    {
+        return $this->endTime;
     }
 }

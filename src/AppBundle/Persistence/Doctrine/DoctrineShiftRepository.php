@@ -57,20 +57,28 @@ class DoctrineShiftRepository implements ShiftRepositoryInterface
      */
     public function save($shift)
     {
-        // TODO: Implement save() method.
+        $this->entityManager->persist($shift);
+        $this->entityManager->flush();
     }
 
     /**
      * Returns all shifts for a given date range
      *
      * @param DateRange $dateRange
-     * @param int       $locationId
      * @param int|null  $userId
      *
-     * @return ShiftCollection
+     * @return Shift[]
      */
-    public function findAllInDateRange(DateRange $dateRange, $locationId, $userId = null)
+    public function findAllInDateRange(DateRange $dateRange, $userId = null)
     {
-        // TODO: Implement findAllInDateRange() method.
+        return $this->entityManager->createQueryBuilder()
+            ->select('s')
+            ->from('Domain\Shifts\Entities\Shift', 's')
+            ->where('s.startTime > :startDate')
+            ->andWhere('s.endTime < :endDate')
+            ->setParameter(':startDate', $dateRange->getStartDate())
+            ->setParameter(':endDate', $dateRange->getEndDate())
+            ->getQuery()
+            ->getResult();
     }
 }

@@ -12,7 +12,12 @@ services:
             - "@persistence.repositories.doctrine.shift"
             - "@persistence.repositories.doctrine.user"
             - "@event.dispatcher"
-        
+
+    domain.service.shift_provider:
+        class: Domain\Shifts\Services\ShiftProvider 
+        arguments:
+            - "@persistence.repositories.doctrine.shift"
+                    
     persistence.repositories.doctrine.user:
         class: AppBundle\Persistence\Doctrine\DoctrineUserRepository
         arguments:
@@ -25,3 +30,7 @@ services:
             
     event.dispatcher:
         class: AppBundle\Event\SymfonyEventDispatcher
+
+    
+    transformers.shift:
+        class: AppBundle\Transformers\ShiftTransformer

@@ -3,7 +3,7 @@
 namespace Domain\Shifts\Services;
 
 use Domain\Shifts\Contracts\EventDispatcherInterface;
-use Domain\Shifts\Services\Exceptions\UserNotAvailableException;
+use Domain\Shifts\Services\Exception\UserNotAvailableException;
 use Domain\Users\Contracts\Exception\UserNotFoundException;
 use Domain\Users\Contracts\UserRepositoryInterface;
 use Domain\Shifts\Commands\ScheduleShiftCommand;
@@ -69,6 +69,6 @@ class ShiftScheduler
         $shift = new Shift($user, $startDate, $endDate);
         $this->shiftRepository->save($shift);
         
-        $this->eventDispatcher->dispatch('shift.scheduled', new ShiftScheduledEvent($shift));
+        $this->eventDispatcher->dispatch(new ShiftScheduledEvent($shift));
     }
 }

@@ -7,11 +7,6 @@ use Domain\Shifts\Entities\DateRange;
 class GetShiftsCommand
 {
     /**
-     * @var integer
-     */
-    private $locationId;
-
-    /**
      * @var
      */
     private $userId;
@@ -24,23 +19,13 @@ class GetShiftsCommand
     /**
      * GetShiftsCommand constructor.
      *
-     * @param int       $locationId
      * @param int       $userId
      * @param DateRange $dateRange
      */
-    public function __construct(DateRange $dateRange, $locationId, $userId = null)
+    public function __construct(DateRange $dateRange, $userId = null)
     {
-        $this->locationId = $locationId;
         $this->userId = $userId;
         $this->dateRange = $dateRange;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLocationId()
-    {
-        return $this->locationId;
     }
 
     /**

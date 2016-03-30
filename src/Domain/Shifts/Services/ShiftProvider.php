@@ -31,9 +31,7 @@ class ShiftProvider
     public function getShifts(GetShiftsCommand $getShiftsCommand)
     {
         return $this->shiftRepository->findAllInDateRange(
-            $getShiftsCommand->getDateRange(),
-            $getShiftsCommand->getLocationId(),
-            $getShiftsCommand->getUserId()
+            $getShiftsCommand->getDateRange()
         );
     }
 }
