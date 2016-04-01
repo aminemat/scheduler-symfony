@@ -55,8 +55,8 @@ class ShiftScheduler
      */
     public function schedule(ScheduleShiftCommand $scheduleShiftCommand)
     {
-        $startDate = $scheduleShiftCommand->to();
-        $endDate = $scheduleShiftCommand->from();
+        $startDate = $scheduleShiftCommand->from();
+        $endDate = $scheduleShiftCommand->to();
         
         if ( ! $user = $this->userRepository->find($scheduleShiftCommand->getUserId())) {
             throw new UserNotFoundException();
