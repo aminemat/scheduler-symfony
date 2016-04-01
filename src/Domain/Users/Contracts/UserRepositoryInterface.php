@@ -8,7 +8,7 @@ use Domain\Users\Entities\User;
 interface UserRepositoryInterface
 {
     /**
-     * Finds an employee by ID
+     * Finds a user by ID
      *
      * @param $userId
      *
@@ -17,7 +17,26 @@ interface UserRepositoryInterface
     public function find($userId);
 
     /**
-     * Returns true if an employee is available at a given time
+     * Finds all users
+     *
+     * @return array The entities.
+     */
+    public function findAll();
+
+    /**
+     * Finds entities by a set of criteria.
+     *
+     * @param array      $criteria
+     * @param array|null $orderBy
+     * @param int|null   $limit
+     * @param int|null   $offset
+     *
+     * @return array The objects.
+     */
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null);
+    
+    /**
+     * Returns true if a user is available at a given time
      *
      * @param User     $user
      * @param DateTime $startDate
