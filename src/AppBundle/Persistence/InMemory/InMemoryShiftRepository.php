@@ -1,30 +1,26 @@
 <?php
 
-namespace AppBundle\Persistence\Doctrine;
+namespace AppBundle\Persistence\InMemory;
 
-use Doctrine\ORM\EntityManager;
+use DateTime;
 use Domain\Shifts\Contracts\ShiftRepositoryInterface;
 use Domain\Shifts\Entities\DateRange;
 use Domain\Shifts\Entities\Shift;
+use Domain\Shifts\Entities\ShiftCollection;
+use Domain\Users\Contracts\UserRepositoryInterface;
+use Domain\Users\Entities\User;
 
-
-class DoctrineShiftRepository implements ShiftRepositoryInterface
+class InMemoryShiftRepository implements ShiftRepositoryInterface
 {
-    /**
-     * @var EntityManager
-     */
-    private $entityManager;
+    private $shifts;
 
     /**
-     * DoctrineShiftRepository constructor.
-     *
-     * @param EntityManager $entityManager
+     * InMemoryShiftRepository constructor.
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct()
     {
-        $this->entityManager = $entityManager;
+        $this->shifts = [];
     }
-
 
     /**
      * Finds a shift by ID
@@ -55,10 +51,9 @@ class DoctrineShiftRepository implements ShiftRepositoryInterface
      *
      * @return mixed
      */
-    public function save($shift)
+    public function save(Shift $shift)
     {
-        $this->entityManager->persist($shift);
-        $this->entityManager->flush();
+        $this->shifts[] = $shift;
     }
 
     /**
@@ -67,19 +62,11 @@ class DoctrineShiftRepository implements ShiftRepositoryInterface
      * @param DateRange $dateRange
      * @param int|null  $userId
      *
-     * @return Shift[]
+     * @return ShiftCollection
      */
     public function findAllInDateRange(DateRange $dateRange, $userId = null)
     {
-        return $this->entityManager->createQueryBuilder()
-            ->select('s')
-            ->from('Domain\Shifts\Entities\Shift', 's')
-            ->where('s.startTime > :startDate')
-            ->andWhere('s.endTime < :endDate')
-            ->setParameter(':startDate', $dateRange->getStartDate())
-            ->setParameter(':endDate', $dateRange->getEndDate())
-            ->getQuery()
-            ->getResult();
+        // TODO: Implement findAllInDateRange() method.
     }
 
     /**
@@ -89,16 +76,26 @@ class DoctrineShiftRepository implements ShiftRepositoryInterface
      */
     public function findAll()
     {
-        // TODO: Implement findAll() method.
+        return $this->shifts;
     }
 
     /**
+     * Finds entities by a set of criteria.
+     *
      * @param array $criteria
      *
-     * @return mixed
+     * @return Shift
      */
     public function findBy(array $criteria)
     {
-        // TODO: Implement findBy() method.
-    }
+        foreach ($this->shifts as $shift) {
+            foreach ($criteria as $propertyName => $propertyValue) {
+                if ($shift->$propertyName == $propertyValue) {
+                    return $shift;
+                }
+            }
+        }
+        
+        return false;
+    }    
 }

@@ -6,12 +6,12 @@ parameters:
 
 services:
     
-#    domain.service.shift_scheduler:
-#        class: Domain\Shifts\Services\ShiftScheduler 
-#        arguments:
-#            - "@persistence.repositories.doctrine.shift"
-#            - "@persistence.repositories.doctrine.user"
-#            - "@event.dispatcher"
+    domain.service.shift_scheduler:
+        class: Domain\Shifts\Services\ShiftScheduler 
+        arguments:
+            - "@persistence.repositories.in_memory.shift"
+            - "@persistence.repositories.in_memory.user"        
+            - "@events.in_memory.event_dispatcher"
 #
 #    domain.service.shift_provider:
 #        class: Domain\Shifts\Services\ShiftProvider 
@@ -20,8 +20,12 @@ services:
                     
     persistence.repositories.in_memory.user:
         class: AppBundle\Persistence\InMemory\InMemoryUserRepository
-        arguments:
-            - "%kernel.root_dir%/../features//Fixtures/User.php"
+        
+    persistence.repositories.in_memory.shift:
+        class: AppBundle\Persistence\InMemory\InMemoryShiftRepository
+                
+    events.in_memory.event_dispatcher:
+        class: AppBundle\Event\InMemoryEventDispatcher
             
 #    persistence.repositories.doctrine.shift:
 #        class: AppBundle\Persistence\Doctrine\DoctrineShiftRepository

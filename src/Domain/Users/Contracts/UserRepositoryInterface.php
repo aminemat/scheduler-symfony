@@ -19,7 +19,7 @@ interface UserRepositoryInterface
     /**
      * Finds all users
      *
-     * @return array The entities.
+     * @return User[]
      */
     public function findAll();
 
@@ -45,4 +45,12 @@ interface UserRepositoryInterface
      * @return bool
      */
     public function isAvailable(User $user, $startDate, $endDate);
+
+    /**
+     * Saves a user
+     * @param User $user
+     *
+     * @return void
+     */
+    public function save(User $user);
 }

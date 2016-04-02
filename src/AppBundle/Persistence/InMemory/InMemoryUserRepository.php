@@ -8,20 +8,22 @@ use Domain\Users\Entities\User;
 
 class InMemoryUserRepository implements UserRepositoryInterface
 {
+    /**
+     * @var array
+     */
+    private $users;
 
     /**
-     * DoctrineUserRepository constructor.
-     *
-     * @param string $fixtureFilePath
+     * InMemoryUserRepository constructor.
      */
-    public function __construct($fixtureFilePath)
+    public function __construct()
     {
-        $this->users = require_once($fixtureFilePath);
+        $this->users = [];
     }
 
 
     /**
-     * Finds an employee by ID
+     * Finds a user by ID
      *
      * @param $userId
      *
@@ -29,11 +31,36 @@ class InMemoryUserRepository implements UserRepositoryInterface
      */
     public function find($userId)
     {
-        return $this->entityManager->find(User::class, $userId);
+        return $this->users[$userId];
     }
 
     /**
-     * Returns true if an employee is available at a given time
+     * Finds all users
+     *
+     * @return array The entities.
+     */
+    public function findAll()
+    {
+        return $this->users;
+    }
+
+    /**
+     * Finds entities by a set of criteria.
+     *
+     * @param array      $criteria
+     * @param array|null $orderBy
+     * @param int|null   $limit
+     * @param int|null   $offset
+     *
+     * @return array The objects.
+     */
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+    {
+        // TODO: Implement findBy() method.
+    }
+
+    /**
+     * Returns true if a user is available at a given time
      *
      * @param User     $user
      * @param DateTime $startDate
@@ -47,29 +74,14 @@ class InMemoryUserRepository implements UserRepositoryInterface
     }
 
     /**
-     * Finds all entities in the repository.
+     * Saves a user
      *
-     * @return User[]
+     * @param User $user
+     *
+     * @return void
      */
-    public function findAll()
+    public function save(User $user)
     {
-        return $this->findBy(array());
-    }
-
-    /**
-     * Finds users by a set of criteria.
-     *
-     * @param array      $criteria
-     * @param array|null $orderBy
-     * @param int|null   $limit
-     * @param int|null   $offset
-     *
-     * @return array The objects.
-     */
-    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
-    {
-        $persister = $this->entityManager->getUnitOfWork()->getEntityPersister(User::class);
-
-        return $persister->loadAll($criteria, $orderBy, $limit, $offset);
+        $this->users[(string)$user->getName()] = $user;
     }
 }

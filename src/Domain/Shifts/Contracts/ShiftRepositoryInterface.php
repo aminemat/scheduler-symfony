@@ -16,6 +16,13 @@ interface ShiftRepositoryInterface
     public function find();
 
     /**
+     * Finds all shifts
+     *
+     * @return Shift[].
+     */
+    public function findAll();    
+
+    /**
      * Returns true if a shift exists for an employee at a given time
      *
      * @param Shift $shift
@@ -31,7 +38,7 @@ interface ShiftRepositoryInterface
      *
      * @return mixed
      */
-    public function save($shift);
+    public function save(Shift $shift);
 
     /**
      * Returns all shifts for a given date range
@@ -42,4 +49,11 @@ interface ShiftRepositoryInterface
      * @return ShiftCollection
      */
     public function findAllInDateRange(DateRange $dateRange, $userId = null);
+
+    /**
+     * @param array $criteria
+     *
+     * @return mixed
+     */
+    public function findBy(array $criteria);
 }

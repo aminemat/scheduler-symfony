@@ -8,3 +8,5 @@ default:
             contexts:
                 - Feature\Context\Domain\Shifts\ShiftSchedulingContext:
                     - "@persistence.repositories.in_memory.user"
+                    - "@persistence.repositories.in_memory.shift"
+                    - "@domain.service.shift_scheduler"

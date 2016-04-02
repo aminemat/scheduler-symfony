@@ -77,4 +77,15 @@ class DoctrineUserRepository implements UserRepositoryInterface
 
         return $persister->loadAll($criteria, $orderBy, $limit, $offset);
     }
-}
+
+    /**
+     * Saves a user
+     *
+     * @param User $user
+     *
+     * @return void
+     */
+    public function save(User $user)
+    {
+        // TODO: Implement save() method.
+    }}
