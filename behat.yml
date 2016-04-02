@@ -1,0 +1,10 @@
+default:
+    extensions:
+        Behat\Symfony2Extension: ~
+
+    suites:
+        shifts:
+            paths: [ "%paths.base%/features/Shift" ]
+            contexts:
+                - Feature\Context\Domain\Shifts\ShiftSchedulingContext:
+                    - "@persistence.repositories.in_memory.user"
