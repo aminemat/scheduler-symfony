@@ -31,4 +31,9 @@ class InMemoryEventDispatcher implements EventDispatcherInterface
     {
         $this->events[] = $event;
     }
+
+    public function getDispatchedEvents()
+    {
+        return $this->events;
+    }
 }

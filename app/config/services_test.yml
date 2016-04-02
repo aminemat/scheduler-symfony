@@ -12,11 +12,6 @@ services:
             - "@persistence.repositories.in_memory.shift"
             - "@persistence.repositories.in_memory.user"        
             - "@events.in_memory.event_dispatcher"
-#
-#    domain.service.shift_provider:
-#        class: Domain\Shifts\Services\ShiftProvider 
-#        arguments:
-#            - "@persistence.repositories.doctrine.shift"
                     
     persistence.repositories.in_memory.user:
         class: AppBundle\Persistence\InMemory\InMemoryUserRepository
@@ -26,15 +21,3 @@ services:
                 
     events.in_memory.event_dispatcher:
         class: AppBundle\Event\InMemoryEventDispatcher
-            
-#    persistence.repositories.doctrine.shift:
-#        class: AppBundle\Persistence\Doctrine\DoctrineShiftRepository
-#        arguments:
-#            - "@doctrine.orm.default_entity_manager"            
-#            
-#    event.dispatcher:
-#        class: AppBundle\Event\SymfonyEventDispatcher
-#
-#    
-#    transformers.shift:
-#        class: AppBundle\Transformers\ShiftTransformer

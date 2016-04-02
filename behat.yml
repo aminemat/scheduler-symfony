@@ -10,3 +10,4 @@ default:
                     - "@persistence.repositories.in_memory.user"
                     - "@persistence.repositories.in_memory.shift"
                     - "@domain.service.shift_scheduler"
+                    - "@events.in_memory.event_dispatcher"

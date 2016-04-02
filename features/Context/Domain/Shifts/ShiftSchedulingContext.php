@@ -2,18 +2,22 @@
 
 namespace Feature\Context\Domain\Shifts;
 
+use AppBundle\Event\InMemoryEventDispatcher;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Domain\Shifts\Commands\ScheduleShiftCommand;
+use Domain\Shifts\Contracts\EventDispatcherInterface;
 use Domain\Shifts\Contracts\ShiftRepositoryInterface;
 use Domain\Shifts\Entities\DateRange;
 use Domain\Shifts\Entities\Shift;
 use Domain\Shifts\Entities\ShiftStatus;
+use Domain\Shifts\Events\ShiftScheduledEvent;
 use Domain\Shifts\Services\ShiftScheduler;
 use Domain\Users\Contracts\UserRepositoryInterface;
 use Domain\Users\Entities\Position;
 use Domain\Users\Entities\User;
 use \DateTime;
+use PHPUnit_Framework_Assert;
 
 class ShiftSchedulingContext implements Context, SnippetAcceptingContext
 {
@@ -29,6 +33,10 @@ class ShiftSchedulingContext implements Context, SnippetAcceptingContext
      * @var ShiftRepositoryInterface
      */
     private $shiftRepository;
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
 
     /**
      * ShiftSchedulingContext constructor.
@@ -36,16 +44,19 @@ class ShiftSchedulingContext implements Context, SnippetAcceptingContext
      * @param UserRepositoryInterface  $userRepository
      * @param ShiftRepositoryInterface $shiftRepository
      * @param ShiftScheduler           $shiftScheduler
+     * @param InMemoryEventDispatcher $eventDispatcher
      */
     public function __construct(
         UserRepositoryInterface $userRepository,
         ShiftRepositoryInterface $shiftRepository,
-        ShiftScheduler $shiftScheduler
+        ShiftScheduler $shiftScheduler,
+        InMemoryEventDispatcher $eventDispatcher
     )
     {
         $this->userRepository = $userRepository;
         $this->shiftScheduler = $shiftScheduler;
         $this->shiftRepository = $shiftRepository;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
 
@@ -96,30 +107,41 @@ class ShiftSchedulingContext implements Context, SnippetAcceptingContext
         
         return $users[$username];
     }
-
+    
     /**
-     * @Then my schedule should contain :shiftCount shift a shift for :username
+     * @Then my schedule should contain :shiftCount shift for employee :username
      */
-    public function myScheduleShouldContainShiftAShiftFor($shiftCount, $username)
+    public function myScheduleShouldContainShiftForEmployee($shiftCount, $username)
     {
         $this->assertShiftCount($shiftCount);
-        
+
         /** @var Shift $shift */
         $shift = array_shift($this->shiftRepository->findAll());
-        
-        \PHPUnit_Framework_Assert::assertEquals($username, $shift->getUser()->getName());
-        \PHPUnit_Framework_Assert::assertEquals(ShiftStatus::SCHEDULED(), $shift->getStatus());
+
+        PHPUnit_Framework_Assert::assertEquals($username, $shift->getUser()->getName());
+        PHPUnit_Framework_Assert::assertEquals(ShiftStatus::SCHEDULED(), $shift->getStatus());
     }
+    
 
     /**
      * @param $shiftCount
      */
     protected function assertShiftCount($shiftCount)
     {
-        \PHPUnit_Framework_Assert::assertCount(
+        PHPUnit_Framework_Assert::assertCount(
             (int)$shiftCount,
             $this->shiftRepository->findAll()
         );
+    }
+
+    /**
+     * @Then a :eventName event must be dispatched
+     */
+    public function aEventMustBeDispatched($eventName)
+    {
+        $events = $this->eventDispatcher->getDispatchedEvents();
+        
+        PHPUnit_Framework_Assert::assertInstanceOf(ShiftScheduledEvent::class, array_shift($events));
     }
 
 
