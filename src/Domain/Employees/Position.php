@@ -19,10 +19,12 @@ class Position
     /**
      * Position constructor.
      *
-     * @param string $name
+     * @param PositionEnum $name
+     * @param null $id
      */
-    public function __construct($name)
+    public function __construct(PositionEnum $name, $id = null)
     {
+        $this->id = $id ?: Uuid::uuid4()->toString();
         $this->name = $name;
     }
 

@@ -3,6 +3,7 @@
 namespace Test\Domain\Shifts\Services;
 
 use DateTime;
+use Domain\Employees\PositionEnum;
 use Domain\Shifts\Commands\ScheduleShiftCommand;
 use Domain\Shifts\Contracts\EventDispatcherInterface;
 use Domain\Shifts\Contracts\ShiftRepositoryInterface;
@@ -81,7 +82,7 @@ class ShiftSchedulerTest extends \PHPUnit_Framework_TestCase
     {
         $this->expectException(EmployeeNotAvailableException::class);
 
-        $this->employeeRepositoryStub->method('find')->willReturn(new Employee('foo', new Position('Cashier'), 'foo@bar.com'));
+        $this->employeeRepositoryStub->method('find')->willReturn(new Employee('foo', new Position(PositionEnum::CASHIER()), 'foo@bar.com'));
         $this->employeeRepositoryStub->method('isAvailable')->willReturn(false);
 
         $command = new ScheduleShiftCommand(
@@ -100,7 +101,7 @@ class ShiftSchedulerTest extends \PHPUnit_Framework_TestCase
      */
     public function dispatches_an_event_after_a_shift_is_scheduled()
     {
-        $employeeMock = new Employee('foo', new Position('Cashier'), 'foo@bar.com');
+        $employeeMock = new Employee('foo', new Position(PositionEnum::CASHIER()), 'foo@bar.com');
         $startDate = new DateTime('January 1st 2016 1:00 p.m CST');
         $endDate = new DateTime('January 1st 2016 6:00 p.m CST');
         

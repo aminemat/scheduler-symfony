@@ -5,6 +5,7 @@ namespace Feature\Context\Domain\Shifts;
 use AppBundle\Event\InMemoryEventDispatcher;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Domain\Employees\PositionEnum;
 use Domain\Shifts\Commands\ScheduleShiftCommand;
 use Domain\Shifts\Contracts\EventDispatcherInterface;
 use Domain\Shifts\Contracts\ShiftRepositoryInterface;
@@ -66,7 +67,7 @@ class ShiftSchedulingContext implements Context, SnippetAcceptingContext
      */
     public function employeeIsAvailable($positionName, $name)
     {
-        $this->employeeRepository->save(new Employee($name, new Position($positionName), 'foo@bar.com'));
+        $this->employeeRepository->save(new Employee($name, new Position(PositionEnum::CASHIER()), 'foo@bar.com'));
     }
 
     /**
