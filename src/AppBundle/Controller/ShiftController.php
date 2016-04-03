@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use DateTime;
 use Domain\Shifts\Commands\GetShiftsCommand;
 use Domain\Shifts\Commands\ScheduleShiftCommand;
-use Domain\Shifts\Entities\DateRange;
+use Domain\Shifts\DateRange;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

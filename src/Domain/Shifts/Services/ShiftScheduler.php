@@ -8,7 +8,7 @@ use Domain\Employees\Contracts\Exception\EmployeeNotFoundException;
 use Domain\Employees\Contracts\EmployeeRepositoryInterface;
 use Domain\Shifts\Commands\ScheduleShiftCommand;
 use Domain\Shifts\Contracts\ShiftRepositoryInterface;
-use Domain\Shifts\Entities\Shift;
+use Domain\Shifts\Shift;
 use Domain\Shifts\Events\ShiftScheduledEvent;
 
 

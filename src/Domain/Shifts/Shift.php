@@ -1,10 +1,10 @@
 <?php
 
-namespace Domain\Shifts\Entities;
+namespace Domain\Shifts;
 
 use DateTime;
-use Domain\Employees\Entities\Employee;
-use Domain\Shifts\Entities;
+use Domain\Employees\Employee;
+use Domain\Shifts;
 use Ramsey\Uuid\Uuid;
 
 class Shift

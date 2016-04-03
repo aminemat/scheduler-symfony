@@ -4,7 +4,7 @@ namespace Domain\Shifts\Services;
 
 use Domain\Shifts\Commands\GetShiftsCommand;
 use Domain\Shifts\Contracts\ShiftRepositoryInterface;
-use Domain\Shifts\Entities\ShiftCollection;
+use Domain\Shifts\ShiftCollection;
 
 class ShiftProvider
 {

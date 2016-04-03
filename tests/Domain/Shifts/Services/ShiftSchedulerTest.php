@@ -6,15 +6,15 @@ use DateTime;
 use Domain\Shifts\Commands\ScheduleShiftCommand;
 use Domain\Shifts\Contracts\EventDispatcherInterface;
 use Domain\Shifts\Contracts\ShiftRepositoryInterface;
-use Domain\Shifts\Entities\DateRange;
-use Domain\Shifts\Entities\Shift;
+use Domain\Shifts\DateRange;
+use Domain\Shifts\Shift;
 use Domain\Shifts\Events\ShiftScheduledEvent;
 use Domain\Shifts\Services\Exception\EmployeeNotAvailableException;
 use Domain\Shifts\Services\ShiftScheduler;
 use Domain\Employees\Contracts\Exception\EmployeeNotFoundException;
 use Domain\Employees\Contracts\EmployeeRepositoryInterface;
-use Domain\Employees\Entities\Position;
-use Domain\Employees\Entities\Employee;
+use Domain\Employees\Position;
+use Domain\Employees\Employee;
 use PHPUnit_Framework_MockObject_MockObject;
 
 /**

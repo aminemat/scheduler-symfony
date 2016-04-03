@@ -3,7 +3,7 @@
 namespace AppBundle\Command;
 
 use DateTime;
-use Domain\Shifts\Entities\DateRange;
+use Domain\Shifts\DateRange;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

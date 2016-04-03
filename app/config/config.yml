@@ -69,7 +69,7 @@ doctrine:
             shifts:
                 type: yml
                 dir: %kernel.root_dir%/../src/AppBundle/Resources/Config/doctrine/shifts
-                prefix: Domain\Shifts\Entities    
+                prefix: Domain\Shifts    
 
 # Swiftmailer Configuration
 swiftmailer:

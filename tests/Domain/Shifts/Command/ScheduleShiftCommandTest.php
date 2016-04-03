@@ -4,7 +4,7 @@ namespace Test\Domain\Shifts\Command;
 
 use DateTime;
 use Domain\Shifts\Commands\ScheduleShiftCommand;
-use Domain\Shifts\Entities\DateRange;
+use Domain\Shifts\DateRange;
 use \InvalidArgumentException;
 use \PHPUnit_Framework_TestCase;
 

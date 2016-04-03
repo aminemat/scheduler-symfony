@@ -5,7 +5,7 @@ namespace AppBundle\Persistence\Doctrine;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use Domain\Employees\Contracts\EmployeeRepositoryInterface;
-use Domain\Employees\Entities\Employee;
+use Domain\Employees\Employee;
 
 class DoctrineEmployeeRepository implements EmployeeRepositoryInterface
 {

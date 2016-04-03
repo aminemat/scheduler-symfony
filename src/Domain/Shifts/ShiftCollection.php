@@ -1,8 +1,8 @@
 <?php
 
-namespace Domain\Shifts\Entities;
+namespace Domain\Shifts;
 
-use Domain\Shifts\Entities;
+use Domain\Shifts;
 
 class ShiftCollection
 {

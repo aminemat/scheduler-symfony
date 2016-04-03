@@ -2,7 +2,7 @@
 
 namespace Domain\Shifts\Commands;
 
-use Domain\Shifts\Entities\DateRange;
+use Domain\Shifts\DateRange;
 
 class GetShiftsCommand
 {

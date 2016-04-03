@@ -4,7 +4,7 @@ namespace AppBundle\Persistence\InMemory;
 
 use DateTime;
 use Domain\Employees\Contracts\EmployeeRepositoryInterface;
-use Domain\Employees\Entities\Employee;
+use Domain\Employees\Employee;
 
 class InMemoryEmployeeRepository implements EmployeeRepositoryInterface
 {

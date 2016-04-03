@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Shifts\Entities;
+namespace Domain\Shifts;
 
 use DateTime;
 use InvalidArgumentException;

@@ -1,4 +1,4 @@
-Domain\Shifts\Entities\Shift:
+Domain\Shifts\Shift:
     type: entity
     table: shift
     id:
@@ -22,7 +22,7 @@ Domain\Shifts\Entities\Shift:
 
     manyToOne:
         employee:
-            targetEntity: Domain\Employees\Entities\Employee
+            targetEntity: Domain\Employees\Employee
             joinColumn:
                 name: employee_id
                 referencedColumnName: id

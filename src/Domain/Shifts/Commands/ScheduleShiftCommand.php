@@ -3,7 +3,7 @@
 namespace Domain\Shifts\Commands;
 
 use DateTime;
-use Domain\Shifts\Entities\DateRange;
+use Domain\Shifts\DateRange;
 
 class ScheduleShiftCommand
 {

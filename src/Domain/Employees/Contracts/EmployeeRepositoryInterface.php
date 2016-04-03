@@ -3,7 +3,7 @@
 namespace Domain\Employees\Contracts;
 
 use DateTime;
-use Domain\Employees\Entities\Employee;
+use Domain\Employees\Employee;
 
 interface EmployeeRepositoryInterface
 {

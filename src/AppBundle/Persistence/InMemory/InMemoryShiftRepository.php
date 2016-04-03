@@ -4,11 +4,11 @@ namespace AppBundle\Persistence\InMemory;
 
 use DateTime;
 use Domain\Shifts\Contracts\ShiftRepositoryInterface;
-use Domain\Shifts\Entities\DateRange;
-use Domain\Shifts\Entities\Shift;
-use Domain\Shifts\Entities\ShiftCollection;
+use Domain\Shifts\DateRange;
+use Domain\Shifts\Shift;
+use Domain\Shifts\ShiftCollection;
 use Domain\Employees\Contracts\EmployeeRepositoryInterface;
-use Domain\Employees\Entities\Employee;
+use Domain\Employees\Employee;
 
 class InMemoryShiftRepository implements ShiftRepositoryInterface
 {

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Transformers;
 
-use Domain\Shifts\Entities\Shift;
+use Domain\Shifts\Shift;
 use League\Fractal\TransformerAbstract;
 
 class ShiftTransformer extends TransformerAbstract

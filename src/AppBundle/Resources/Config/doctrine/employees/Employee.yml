@@ -1,4 +1,4 @@
-Domain\Employees\Entities\Employee:
+Domain\Employees\Employee:
     type: entity
     table: employee
     id:

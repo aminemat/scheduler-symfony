@@ -3,7 +3,7 @@
 namespace Domain\Shifts\Events;
 
 use Domain\Shifts\Contracts\EventInterface;
-use Domain\Shifts\Entities\Shift;
+use Domain\Shifts\Shift;
 
 class ShiftScheduledEvent implements EventInterface
 {

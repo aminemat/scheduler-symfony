@@ -2,9 +2,9 @@
 
 namespace Domain\Shifts\Contracts;
 
-use Domain\Shifts\Entities\DateRange;
-use Domain\Shifts\Entities\Shift;
-use Domain\Shifts\Entities\ShiftCollection;
+use Domain\Shifts\DateRange;
+use Domain\Shifts\Shift;
+use Domain\Shifts\ShiftCollection;
 
 interface ShiftRepositoryInterface
 {

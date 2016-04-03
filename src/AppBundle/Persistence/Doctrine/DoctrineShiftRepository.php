@@ -4,8 +4,8 @@ namespace AppBundle\Persistence\Doctrine;
 
 use Doctrine\ORM\EntityManager;
 use Domain\Shifts\Contracts\ShiftRepositoryInterface;
-use Domain\Shifts\Entities\DateRange;
-use Domain\Shifts\Entities\Shift;
+use Domain\Shifts\DateRange;
+use Domain\Shifts\Shift;
 
 
 class DoctrineShiftRepository implements ShiftRepositoryInterface
