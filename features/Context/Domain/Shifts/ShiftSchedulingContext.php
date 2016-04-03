@@ -13,18 +13,18 @@ use Domain\Shifts\Entities\Shift;
 use Domain\Shifts\Entities\ShiftStatus;
 use Domain\Shifts\Events\ShiftScheduledEvent;
 use Domain\Shifts\Services\ShiftScheduler;
-use Domain\Users\Contracts\UserRepositoryInterface;
-use Domain\Users\Entities\Position;
-use Domain\Users\Entities\User;
+use Domain\Employees\Contracts\EmployeeRepositoryInterface;
+use Domain\Employees\Entities\Position;
+use Domain\Employees\Entities\Employee;
 use \DateTime;
 use PHPUnit_Framework_Assert;
 
 class ShiftSchedulingContext implements Context, SnippetAcceptingContext
 {
     /**
-     * @var UserRepositoryInterface
+     * @var EmployeeRepositoryInterface
      */
-    private $userRepository;
+    private $employeeRepository;
     /**
      * @var ShiftScheduler
      */
@@ -41,19 +41,19 @@ class ShiftSchedulingContext implements Context, SnippetAcceptingContext
     /**
      * ShiftSchedulingContext constructor.
      *
-     * @param UserRepositoryInterface  $userRepository
+     * @param EmployeeRepositoryInterface  $employeeRepository
      * @param ShiftRepositoryInterface $shiftRepository
      * @param ShiftScheduler           $shiftScheduler
      * @param InMemoryEventDispatcher $eventDispatcher
      */
     public function __construct(
-        UserRepositoryInterface $userRepository,
+        EmployeeRepositoryInterface $employeeRepository,
         ShiftRepositoryInterface $shiftRepository,
         ShiftScheduler $shiftScheduler,
         InMemoryEventDispatcher $eventDispatcher
     )
     {
-        $this->userRepository = $userRepository;
+        $this->employeeRepository = $employeeRepository;
         $this->shiftScheduler = $shiftScheduler;
         $this->shiftRepository = $shiftRepository;
         $this->eventDispatcher = $eventDispatcher;
@@ -66,16 +66,16 @@ class ShiftSchedulingContext implements Context, SnippetAcceptingContext
      */
     public function employeeIsAvailable($positionName, $name)
     {
-        $this->userRepository->save(new User($name, new Position($positionName), 'foo@bar.com'));
+        $this->employeeRepository->save(new Employee($name, new Position($positionName), 'foo@bar.com'));
     }
 
     /**
-     * @When I schedule a shift for :username from :startDate to :endDate
+     * @When I schedule a shift for :employeeName from :startDate to :endDate
      */
-    public function iScheduleAShiftForFromTo($username, $startDate, $endDate)
+    public function iScheduleAShiftForFromTo($employeeName, $startDate, $endDate)
     {
         $command = new ScheduleShiftCommand(
-            $this->getUserByName($username)->getName(),
+            $this->getEmployeeByName($employeeName)->getName(),
             new DateRange(
                 new DateTime($startDate),
                 new DateTime($endDate)
@@ -86,39 +86,39 @@ class ShiftSchedulingContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Then a shift for :username from :dateStart to :dateEnd must be scheduled
+     * @Then a shift for :employeeName from :dateStart to :dateEnd must be scheduled
      */
-    public function aShiftForFromToMustBeSaved($username, $dateStart, $dateEnd)
+    public function aShiftForFromToMustBeSaved($employeeName, $dateStart, $dateEnd)
     {
         print_r($this->shiftRepository->findAll());
         $this->shiftRepository->findBy([
-            'user' 
+            'employee' 
         ]);
         
     }
 
-    private function getUserByName($username)
+    private function getEmployeeByName($employeeName)
     {
-        $users = $this->userRepository->findAll();
+        $employees = $this->employeeRepository->findAll();
         
-        if ( ! array_key_exists($username, $users)) {
-            throw new \InvalidArgumentException(sprintf('User %s does not exist', $username));
+        if ( ! array_key_exists($employeeName, $employees)) {
+            throw new \InvalidArgumentException(sprintf('Employee %s does not exist', $employeeName));
         }
         
-        return $users[$username];
+        return $employees[$employeeName];
     }
     
     /**
-     * @Then my schedule should contain :shiftCount shift for employee :username
+     * @Then my schedule should contain :shiftCount shift for employee :employeeName
      */
-    public function myScheduleShouldContainShiftForEmployee($shiftCount, $username)
+    public function myScheduleShouldContainShiftForEmployee($shiftCount, $employeeName)
     {
         $this->assertShiftCount($shiftCount);
 
         /** @var Shift $shift */
         $shift = array_shift($this->shiftRepository->findAll());
 
-        PHPUnit_Framework_Assert::assertEquals($username, $shift->getUser()->getName());
+        PHPUnit_Framework_Assert::assertEquals($employeeName, $shift->getEmployee()->getName());
         PHPUnit_Framework_Assert::assertEquals(ShiftStatus::SCHEDULED(), $shift->getStatus());
     }
     

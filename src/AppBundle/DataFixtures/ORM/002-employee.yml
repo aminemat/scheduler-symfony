@@ -1,5 +1,5 @@
-Domain\Users\Entities\User:
+Domain\Employees\Entities\Employee:
                
-    user_{1..10}:
+    employee_{1..10}:
         __construct: [<name()>, "@position*", <email()>]        
         

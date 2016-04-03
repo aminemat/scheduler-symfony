@@ -4,10 +4,10 @@ namespace AppBundle\Persistence\Doctrine;
 
 use DateTime;
 use Doctrine\ORM\EntityManager;
-use Domain\Users\Contracts\UserRepositoryInterface;
-use Domain\Users\Entities\User;
+use Domain\Employees\Contracts\EmployeeRepositoryInterface;
+use Domain\Employees\Entities\Employee;
 
-class DoctrineUserRepository implements UserRepositoryInterface
+class DoctrineEmployeeRepository implements EmployeeRepositoryInterface
 {
     /**
      * @var EntityManager
@@ -15,7 +15,7 @@ class DoctrineUserRepository implements UserRepositoryInterface
     private $entityManager;
 
     /**
-     * DoctrineUserRepository constructor.
+     * DoctrineEmployeeRepository constructor.
      *
      * @param EntityManager $entityManager
      */
@@ -28,25 +28,25 @@ class DoctrineUserRepository implements UserRepositoryInterface
     /**
      * Finds an employee by ID
      *
-     * @param $userId
+     * @param $employeeId
      *
-     * @return User
+     * @return Employee
      */
-    public function find($userId)
+    public function find($employeeId)
     {
-        return $this->entityManager->find(User::class, $userId);
+        return $this->entityManager->find(Employee::class, $employeeId);
     }
 
     /**
      * Returns true if an employee is available at a given time
      *
-     * @param User     $user
+     * @param Employee $employee
      * @param DateTime $startDate
      * @param DateTime $endDate
      *
      * @return bool
      */
-    public function isAvailable(User $user, $startDate, $endDate)
+    public function isAvailable(Employee $employee, $startDate, $endDate)
     {
         return true;
     }
@@ -54,7 +54,7 @@ class DoctrineUserRepository implements UserRepositoryInterface
     /**
      * Finds all entities in the repository.
      *
-     * @return User[]
+     * @return Employee[]
      */
     public function findAll()
     {
@@ -62,7 +62,7 @@ class DoctrineUserRepository implements UserRepositoryInterface
     }
 
     /**
-     * Finds users by a set of criteria.
+     * Finds employees by a set of criteria.
      *
      * @param array      $criteria
      * @param array|null $orderBy
@@ -73,19 +73,19 @@ class DoctrineUserRepository implements UserRepositoryInterface
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        $persister = $this->entityManager->getUnitOfWork()->getEntityPersister(User::class);
+        $persister = $this->entityManager->getUnitOfWork()->getEntityPersister(Employee::class);
 
         return $persister->loadAll($criteria, $orderBy, $limit, $offset);
     }
 
     /**
-     * Saves a user
+     * Saves a employee
      *
-     * @param User $user
+     * @param Employee $employee
      *
      * @return void
      */
-    public function save(User $user)
+    public function save(Employee $employee)
     {
         // TODO: Implement save() method.
     }}

@@ -1,10 +1,10 @@
 <?php
 
-namespace Domain\Users\Entities;
+namespace Domain\Employees\Entities;
 
 use Ramsey\Uuid\Uuid;
 
-class User
+class Employee
 {
     /**
      * @var Uuid
@@ -27,14 +27,16 @@ class User
     private $email;
 
     /**
-     * User constructor.
+     * Employee constructor.
      *
      * @param string   $name
      * @param Position $position
      * @param string   $email
+     * @param Uuid|null $id
      */
-    public function __construct($name, Position $position, $email)
+    public function __construct($name, Position $position, $email, $id = null)
     {
+        $this->id = $id ?: Uuid::uuid4()->toString();
         $this->name = $name;
         $this->position = $position;
         $this->email = $email;

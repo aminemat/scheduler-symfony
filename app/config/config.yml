@@ -64,7 +64,7 @@ doctrine:
         mappings:
             employees:
                 type: yml
-                dir: %kernel.root_dir%/../src/AppBundle/Resources/Config/doctrine/users
+                dir: %kernel.root_dir%/../src/AppBundle/Resources/Config/doctrine/employees
                 prefix: Domain\Users\Entities
             shifts:
                 type: yml

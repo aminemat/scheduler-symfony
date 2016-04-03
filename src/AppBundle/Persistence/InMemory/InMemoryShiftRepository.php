@@ -7,8 +7,8 @@ use Domain\Shifts\Contracts\ShiftRepositoryInterface;
 use Domain\Shifts\Entities\DateRange;
 use Domain\Shifts\Entities\Shift;
 use Domain\Shifts\Entities\ShiftCollection;
-use Domain\Users\Contracts\UserRepositoryInterface;
-use Domain\Users\Entities\User;
+use Domain\Employees\Contracts\EmployeeRepositoryInterface;
+use Domain\Employees\Entities\Employee;
 
 class InMemoryShiftRepository implements ShiftRepositoryInterface
 {
@@ -60,11 +60,11 @@ class InMemoryShiftRepository implements ShiftRepositoryInterface
      * Returns all shifts for a given date range
      *
      * @param DateRange $dateRange
-     * @param int|null  $userId
+     * @param int|null  $employeeId
      *
      * @return ShiftCollection
      */
-    public function findAllInDateRange(DateRange $dateRange, $userId = null)
+    public function findAllInDateRange(DateRange $dateRange, $employeeId = null)
     {
         // TODO: Implement findAllInDateRange() method.
     }

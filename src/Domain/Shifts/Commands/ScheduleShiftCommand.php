@@ -10,7 +10,7 @@ class ScheduleShiftCommand
     /**
      * @var int
      */
-    private $userId;
+    private $employeeId;
 
     /**
      * @var DateRange
@@ -20,24 +20,24 @@ class ScheduleShiftCommand
     /**
      * ScheduleShiftCommand constructor.
      *
-     * @param int       $userId
+     * @param int       $employeeId
      * @param DateRange $dateRange
      *
      */
     public function __construct(
-        $userId,
+        $employeeId,
         DateRange $dateRange
     ) {
-        $this->userId = $userId;
+        $this->employeeId = $employeeId;
         $this->dateRange = $dateRange;
     }
 
     /**
      * @return int
      */
-    public function getUserId()
+    public function getEmployeeId()
     {
-        return $this->userId;
+        return $this->employeeId;
     }
 
     /**

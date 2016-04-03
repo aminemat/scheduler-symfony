@@ -65,11 +65,11 @@ class DoctrineShiftRepository implements ShiftRepositoryInterface
      * Returns all shifts for a given date range
      *
      * @param DateRange $dateRange
-     * @param int|null  $userId
+     * @param int|null  $employeeId
      *
      * @return Shift[]
      */
-    public function findAllInDateRange(DateRange $dateRange, $userId = null)
+    public function findAllInDateRange(DateRange $dateRange, $employeeId = null)
     {
         return $this->entityManager->createQueryBuilder()
             ->select('s')

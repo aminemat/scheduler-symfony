@@ -21,8 +21,8 @@ Domain\Shifts\Entities\Shift:
             
 
     manyToOne:
-        user:
-            targetEntity: Domain\Users\Entities\User
+        employee:
+            targetEntity: Domain\Employees\Entities\Employee
             joinColumn:
-                name: user_id
+                name: employee_id
                 referencedColumnName: id

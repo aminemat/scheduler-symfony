@@ -1,4 +1,4 @@
-Domain\Users\Entities\Position:
+Domain\Employees\Entities\Position:
 
     position_cashier:
         __construct: ["cachier"]

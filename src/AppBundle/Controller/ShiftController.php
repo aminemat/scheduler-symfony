@@ -73,7 +73,7 @@ class ShiftController extends Controller
 //                    $eventManger
 //                )
 //            ),
-//            new DoctrineUserRepository(
+//            new DoctrineEmployeeRepository(
 //                new EntityManager(
 //                    $connection,
 //                    $config,

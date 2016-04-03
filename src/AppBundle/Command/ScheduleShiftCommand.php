@@ -15,7 +15,7 @@ class ScheduleShiftCommand extends ContainerAwareCommand
     /**
      * @var string
      */
-    private $username;
+    private $employeeName;
 
     /**
      * @var DateTime
@@ -28,9 +28,9 @@ class ScheduleShiftCommand extends ContainerAwareCommand
     private $endDate;
 
     /**
-     * @var array of user names indexed by id
+     * @var array of employee names indexed by id
      */
-    private $users;
+    private $employees;
 
     /**
      * @var SymfonyStyle
@@ -39,7 +39,7 @@ class ScheduleShiftCommand extends ContainerAwareCommand
 
     /**
      * {@inheritdoc}
-     */    
+     */
     protected function configure()
     {
         $this
@@ -61,43 +61,43 @@ class ScheduleShiftCommand extends ContainerAwareCommand
     }
 
     /**
-     * Returns an array of usernames indexed by user id
-     * 
+     * Returns an array of employeenames indexed by employee id
+     *
      * @return array
      */
-    private function getUsers()
+    private function getEmployees()
     {
-        $users = $this->getContainer()->get('persistence.repositories.doctrine.user')->findAll();
-        $usersIndex = [];
-        foreach ($users as $user) {
-            $usersIndex[(string) $user->getId()] = $user->getName();       
+        $employees = $this->getContainer()->get('persistence.repositories.doctrine.employee')->findAll();
+        $employeesIndex = [];
+        foreach ($employees as $employee) {
+            $employeesIndex[(string)$employee->getId()] = $employee->getName();
         }
 
-        return $usersIndex;
+        return $employeesIndex;
     }
 
     /**
-     * Prompts for the user to schedule 
-     * 
+     * Prompts for the employee to schedule
+     *
      * @return string
      */
-    private function promptForUser()
+    private function promptForEmployee()
     {
-        return $this->io->choice('Please select the employee you want to schedule ', array_values($this->users));
+        return $this->io->choice('Please select the employee you want to schedule ', array_values($this->employees));
     }
 
     /**
-     * Prompts for the user for a start time for the shift
+     * Prompts for the employee for a start time for the shift
      *
      * @return DateTime
-     */    
+     */
     private function promptForStartDate()
     {
         return new DateTime($this->io->ask('Please enter a start date/time: '));
     }
 
     /**
-     * Prompts for the user for an end time for the shift
+     * Prompts for the employee for an end time for the shift
      *
      * @return DateTime
      */
@@ -107,50 +107,51 @@ class ScheduleShiftCommand extends ContainerAwareCommand
     }
 
     /**
-     * Prompts the user for the necessary arguments: user, start date, end date
-     */    
+     * Prompts the employee for the necessary arguments: employee, start date, end date
+     */
     private function promptForArgs()
     {
-        $this->users = $this->getUsers();
-        $this->username = $this->promptForUser();
+        $this->employees = $this->getEmployees();
+        $this->employeeName = $this->promptForEmployee();
         $this->startDate = $this->promptForStartDate();
         $this->endDate = $this->promptForEndDate();
     }
 
     /**
-     * Asks the user to confirm before scheduling the shift  
-     * 
+     * Asks the employee to confirm before scheduling the shift
+     *
      * @return bool
      */
     private function askForConfirmation()
     {
         if (!$this->io->confirm(sprintf(
-                'Schedule a shift from %s to %s for user %s ?',
+                'Schedule a shift from %s to %s for employee %s ?',
                 $this->startDate->format('l jS \of F Y h:i:s A'),
                 $this->endDate->format('l jS \of F Y h:i:s A'),
-                $this->username
+                $this->employeeName
             )
-        )) {
+        )
+        ) {
             return false;
         }
     }
 
     /**
-     * Schedules a shift for the chosen user with the provided start and end dates
-     * 
-     * @throws \Domain\Shifts\Services\Exception\UserNotAvailableException
-     * @throws \Domain\Users\Contracts\Exception\UserNotFoundException
+     * Schedules a shift for the chosen employee with the provided start and end dates
+     *
+     * @throws \Domain\Shifts\Services\Exception\EmployeeNotAvailableException
+     * @throws \Domain\Employees\Contracts\Exception\EmployeeNotFoundException
      */
     private function scheduleCommand()
     {
         $command = new ScheduleShiftDomainCommand(
-            array_search($this->username, $this->users),
+            array_search($this->employeeName, $this->employees),
             new DateRange(
                 $this->startDate,
-                $this->endDate    
+                $this->endDate
             )
         );
-        
+
         $this->getContainer()->get('domain.service.shift_scheduler')->schedule($command);
         $this->io->success('Shift scheduled !');
     }

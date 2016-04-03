@@ -1,4 +1,4 @@
-Domain\Users\Entities\Position:
+Domain\Employees\Entities\Position:
     type: entity
     table: position
     id:

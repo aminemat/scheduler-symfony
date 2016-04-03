@@ -2,7 +2,7 @@
 
 namespace Domain\Shifts\Services\Exception;
 
-class UserNotAvailableException extends \Exception
+class EmployeeNotAvailableException extends \Exception
 {
 
 }

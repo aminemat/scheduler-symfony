@@ -3,7 +3,7 @@
 namespace Domain\Shifts\Entities;
 
 use DateTime;
-use Domain\Users\Entities\User;
+use Domain\Employees\Entities\Employee;
 use Domain\Shifts\Entities;
 use Ramsey\Uuid\Uuid;
 
@@ -25,9 +25,9 @@ class Shift
     private $endTime;
 
     /**
-     * @var User
+     * @var Employee
      */
-    private $user;
+    private $employee;
 
     /**
      * @var ShiftStatus
@@ -37,20 +37,20 @@ class Shift
     /**
      * Shift constructor.
      *
-     * @param User     $user
+     * @param Employee $employee
      * @param DateTime $startTime
      * @param DateTime $endTime
      * @param string   $status
      */
     public function __construct(
-        User $user,
+        Employee $employee,
         DateTime $startTime,
         DateTime $endTime,
         $status = ShiftStatus::SCHEDULED
     ) {
         $this->startTime = $startTime;
         $this->endTime = $endTime;
-        $this->user = $user;
+        $this->employee = $employee;
         $this->status = $status;
     }
 
@@ -76,11 +76,11 @@ class Shift
     }
 
     /**
-     * @return User
+     * @return Employee
      */
-    public function getUser()
+    public function getEmployee()
     {
-        return $this->user;
+        return $this->employee;
     }
 
     /**

@@ -10,7 +10,7 @@ services:
         class: Domain\Shifts\Services\ShiftScheduler 
         arguments:
             - "@persistence.repositories.doctrine.shift"
-            - "@persistence.repositories.doctrine.user"
+            - "@persistence.repositories.doctrine.employee"
             - "@event.dispatcher"
 
     domain.service.shift_provider:
@@ -18,8 +18,8 @@ services:
         arguments:
             - "@persistence.repositories.doctrine.shift"
                     
-    persistence.repositories.doctrine.user:
-        class: AppBundle\Persistence\Doctrine\DoctrineUserRepository
+    persistence.repositories.doctrine.employee:
+        class: AppBundle\Persistence\Doctrine\DoctrineEmployeeRepository
         arguments:
             - "@doctrine.orm.default_entity_manager"
             

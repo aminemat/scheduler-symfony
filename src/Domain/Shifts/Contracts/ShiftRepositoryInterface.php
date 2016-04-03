@@ -44,11 +44,11 @@ interface ShiftRepositoryInterface
      * Returns all shifts for a given date range
      *
      * @param DateRange $dateRange
-     * @param int|null  $userId
+     * @param int|null  $employeeId
      *
      * @return ShiftCollection
      */
-    public function findAllInDateRange(DateRange $dateRange, $userId = null);
+    public function findAllInDateRange(DateRange $dateRange, $employeeId = null);
 
     /**
      * @param array $criteria

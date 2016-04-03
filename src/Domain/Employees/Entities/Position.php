@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Users\Entities;
+namespace Domain\Employees\Entities;
 
 use Ramsey\Uuid\Uuid;
 

@@ -1,6 +1,6 @@
-Domain\Users\Entities\User:
+Domain\Employees\Entities\Employee:
     type: entity
-    table: user
+    table: employee
     id:
         id:
             type: uuid

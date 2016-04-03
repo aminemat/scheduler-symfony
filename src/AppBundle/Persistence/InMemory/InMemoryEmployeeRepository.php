@@ -3,45 +3,45 @@
 namespace AppBundle\Persistence\InMemory;
 
 use DateTime;
-use Domain\Users\Contracts\UserRepositoryInterface;
-use Domain\Users\Entities\User;
+use Domain\Employees\Contracts\EmployeeRepositoryInterface;
+use Domain\Employees\Entities\Employee;
 
-class InMemoryUserRepository implements UserRepositoryInterface
+class InMemoryEmployeeRepository implements EmployeeRepositoryInterface
 {
     /**
      * @var array
      */
-    private $users;
+    private $employees;
 
     /**
-     * InMemoryUserRepository constructor.
+     * InMemoryEmployeeRepository constructor.
      */
     public function __construct()
     {
-        $this->users = [];
+        $this->employees = [];
     }
 
 
     /**
-     * Finds a user by ID
+     * Finds a employee by ID
      *
-     * @param $userId
+     * @param $employeeId
      *
-     * @return User
+     * @return Employee
      */
-    public function find($userId)
+    public function find($employeeId)
     {
-        return $this->users[$userId];
+        return $this->employees[$employeeId];
     }
 
     /**
-     * Finds all users
+     * Finds all employees
      *
      * @return array The entities.
      */
     public function findAll()
     {
-        return $this->users;
+        return $this->employees;
     }
 
     /**
@@ -60,28 +60,28 @@ class InMemoryUserRepository implements UserRepositoryInterface
     }
 
     /**
-     * Returns true if a user is available at a given time
+     * Returns true if a employee is available at a given time
      *
-     * @param User     $user
+     * @param Employee $employee
      * @param DateTime $startDate
      * @param DateTime $endDate
      *
      * @return bool
      */
-    public function isAvailable(User $user, $startDate, $endDate)
+    public function isAvailable(Employee $employee, $startDate, $endDate)
     {
         return true;
     }
 
     /**
-     * Saves a user
+     * Saves a employee
      *
-     * @param User $user
+     * @param Employee $employee
      *
      * @return void
      */
-    public function save(User $user)
+    public function save(Employee $employee)
     {
-        $this->users[(string)$user->getName()] = $user;
+        $this->employees[(string)$employee->getName()] = $employee;
     }
 }

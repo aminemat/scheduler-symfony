@@ -14,7 +14,7 @@ services:
             - "@events.in_memory.event_dispatcher"
                     
     persistence.repositories.in_memory.user:
-        class: AppBundle\Persistence\InMemory\InMemoryUserRepository
+        class: AppBundle\Persistence\InMemory\InMemoryEmployeeRepository
         
     persistence.repositories.in_memory.shift:
         class: AppBundle\Persistence\InMemory\InMemoryShiftRepository

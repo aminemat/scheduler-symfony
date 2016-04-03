@@ -9,12 +9,12 @@ use Domain\Shifts\Contracts\ShiftRepositoryInterface;
 use Domain\Shifts\Entities\DateRange;
 use Domain\Shifts\Entities\Shift;
 use Domain\Shifts\Events\ShiftScheduledEvent;
-use Domain\Shifts\Services\Exception\UserNotAvailableException;
+use Domain\Shifts\Services\Exception\EmployeeNotAvailableException;
 use Domain\Shifts\Services\ShiftScheduler;
-use Domain\Users\Contracts\Exception\UserNotFoundException;
-use Domain\Users\Contracts\UserRepositoryInterface;
-use Domain\Users\Entities\Position;
-use Domain\Users\Entities\User;
+use Domain\Employees\Contracts\Exception\EmployeeNotFoundException;
+use Domain\Employees\Contracts\EmployeeRepositoryInterface;
+use Domain\Employees\Entities\Position;
+use Domain\Employees\Entities\Employee;
 use PHPUnit_Framework_MockObject_MockObject;
 
 /**
@@ -25,7 +25,7 @@ class ShiftSchedulerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var PHPUnit_Framework_MockObject_MockObject
      */
-    private $userRepositoryStub;
+    private $employeeRepositoryStub;
 
     /**
      * @var PHPUnit_Framework_MockObject_MockObject
@@ -45,13 +45,13 @@ class ShiftSchedulerTest extends \PHPUnit_Framework_TestCase
 
     public function setup()
     {
-        $this->userRepositoryStub = $this->getMockBuilder(UserRepositoryInterface::class)->getMock();
+        $this->employeeRepositoryStub = $this->getMockBuilder(EmployeeRepositoryInterface::class)->getMock();
         $this->shiftRepositoryStub = $this->getMockBuilder(ShiftRepositoryInterface::class)->getMock();
         $this->eventDispatcherStub = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
         
         $this->shiftScheduler = new ShiftScheduler(
             $this->shiftRepositoryStub,
-            $this->userRepositoryStub,
+            $this->employeeRepositoryStub,
             $this->eventDispatcherStub
         );
     }
@@ -59,9 +59,9 @@ class ShiftSchedulerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function throws_a_user_not_found_exception_if_invalid_user()
+    public function throws_a_employee_not_found_exception_if_invalid_employee()
     {
-        $this->expectException(UserNotFoundException::class);
+        $this->expectException(EmployeeNotFoundException::class);
         
         $command = new ScheduleShiftCommand(
             'foo',
@@ -77,12 +77,12 @@ class ShiftSchedulerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function throws_a_user_not_available_exception_if_user_unavailable()
+    public function throws_a_employee_not_available_exception_if_employee_unavailable()
     {
-        $this->expectException(UserNotAvailableException::class);
+        $this->expectException(EmployeeNotAvailableException::class);
 
-        $this->userRepositoryStub->method('find')->willReturn(new User('foo', new Position('Cashier'), 'foo@bar.com'));
-        $this->userRepositoryStub->method('isAvailable')->willReturn(false);
+        $this->employeeRepositoryStub->method('find')->willReturn(new Employee('foo', new Position('Cashier'), 'foo@bar.com'));
+        $this->employeeRepositoryStub->method('isAvailable')->willReturn(false);
 
         $command = new ScheduleShiftCommand(
             'foo',
@@ -100,14 +100,14 @@ class ShiftSchedulerTest extends \PHPUnit_Framework_TestCase
      */
     public function dispatches_an_event_after_a_shift_is_scheduled()
     {
-        $userMock = new User('foo', new Position('Cashier'), 'foo@bar.com');
+        $employeeMock = new Employee('foo', new Position('Cashier'), 'foo@bar.com');
         $startDate = new DateTime('January 1st 2016 1:00 p.m CST');
         $endDate = new DateTime('January 1st 2016 6:00 p.m CST');
         
-        $shift = new Shift($userMock, $startDate, $endDate);
+        $shift = new Shift($employeeMock, $startDate, $endDate);
         
-        $this->userRepositoryStub->method('find')->willReturn($userMock);
-        $this->userRepositoryStub->method('isAvailable')->willReturn(true);        
+        $this->employeeRepositoryStub->method('find')->willReturn($employeeMock);
+        $this->employeeRepositoryStub->method('isAvailable')->willReturn(true);        
         $this->eventDispatcherStub->method('dispatch')->with(new ShiftScheduledEvent($shift));
         
         $command = new ScheduleShiftCommand(

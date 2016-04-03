@@ -11,7 +11,7 @@ class ShiftTransformer extends TransformerAbstract
     {
         return [
             'id' => $shift->getId(),
-            'user' => $shift->getUser()->getName(),
+            'employee' => $shift->getEmployee()->getName(),
             'start_time' => $shift->getStartTime(),
             'end_time' => $shift->getEndTime(),
             'status' => (string) $shift->getStatus()

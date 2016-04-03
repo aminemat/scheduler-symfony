@@ -1,25 +1,25 @@
 <?php
 
-namespace Domain\Users\Contracts;
+namespace Domain\Employees\Contracts;
 
 use DateTime;
-use Domain\Users\Entities\User;
+use Domain\Employees\Entities\Employee;
 
-interface UserRepositoryInterface
+interface EmployeeRepositoryInterface
 {
     /**
-     * Finds a user by ID
+     * Finds a employee by ID
      *
-     * @param $userId
+     * @param $employeeId
      *
-     * @return User
+     * @return Employee
      */
-    public function find($userId);
+    public function find($employeeId);
 
     /**
-     * Finds all users
+     * Finds all employees
      *
-     * @return User[]
+     * @return Employee[]
      */
     public function findAll();
 
@@ -36,21 +36,22 @@ interface UserRepositoryInterface
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null);
     
     /**
-     * Returns true if a user is available at a given time
+     * Returns true if a employee is available at a given time
      *
-     * @param User     $user
+     * @param Employee $employee
      * @param DateTime $startDate
      * @param DateTime $endDate
      *
      * @return bool
      */
-    public function isAvailable(User $user, $startDate, $endDate);
+    public function isAvailable(Employee $employee, $startDate, $endDate);
 
     /**
-     * Saves a user
-     * @param User $user
+     * Saves a employee
+     * 
+*@param Employee $employee
      *
      * @return void
      */
-    public function save(User $user);
+    public function save(Employee $employee);
 }
