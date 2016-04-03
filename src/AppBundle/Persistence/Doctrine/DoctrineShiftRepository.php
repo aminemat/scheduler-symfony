@@ -55,7 +55,7 @@ class DoctrineShiftRepository implements ShiftRepositoryInterface
      *
      * @return mixed
      */
-    public function save($shift)
+    public function save(Shift $shift)
     {
         $this->entityManager->persist($shift);
         $this->entityManager->flush();
@@ -73,7 +73,7 @@ class DoctrineShiftRepository implements ShiftRepositoryInterface
     {
         return $this->entityManager->createQueryBuilder()
             ->select('s')
-            ->from('Domain\Shifts\Entities\Shift', 's')
+            ->from('Domain\Shifts\Shift', 's')
             ->where('s.startTime > :startDate')
             ->andWhere('s.endTime < :endDate')
             ->setParameter(':startDate', $dateRange->getStartDate())

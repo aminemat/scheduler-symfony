@@ -65,7 +65,7 @@ doctrine:
             employees:
                 type: yml
                 dir: %kernel.root_dir%/../src/AppBundle/Resources/Config/doctrine/employees
-                prefix: Domain\Users\Entities
+                prefix: Domain\Employees
             shifts:
                 type: yml
                 dir: %kernel.root_dir%/../src/AppBundle/Resources/Config/doctrine/shifts

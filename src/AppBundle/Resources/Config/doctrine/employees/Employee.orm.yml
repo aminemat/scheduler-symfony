@@ -18,9 +18,9 @@ Domain\Employees\Employee:
             length: 100
             unique: true
 
-    ManyToMany:
+    manyToOne:
         position:
-            targetEntity: Position
+            targetEntity: Domain\Employees\Position
             joinColumn:
                 name: position_id
                 referencedColumnName: id

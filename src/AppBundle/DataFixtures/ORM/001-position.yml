@@ -1,10 +1,14 @@
 Domain\Employees\Position:
 
-    position_cashier:
-        __construct: ["cachier"]
-        
     position_manager:
-        __construct: ["manager"]        
-        
-    position_supervisor:
-        __construct: ["supervisor"]
+        __construct: [<employeePosition('MANAGER')>]
+
+    position_cashier:
+        __construct: [<employeePosition('CASHIER')>]
+
+    position_buyer:
+        __construct: [<employeePosition('BUYER')>]
+
+    position_merchandiser:
+        __construct: [<employeePosition('MERCHANDISER')>]
+
