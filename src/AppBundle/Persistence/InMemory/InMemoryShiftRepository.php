@@ -62,7 +62,7 @@ class InMemoryShiftRepository implements ShiftRepositoryInterface
      * @param DateRange $dateRange
      * @param int|null  $employeeId
      *
-     * @return ShiftCollection
+     * @return Shift[]
      */
     public function findAllInDateRange(DateRange $dateRange, $employeeId = null)
     {
