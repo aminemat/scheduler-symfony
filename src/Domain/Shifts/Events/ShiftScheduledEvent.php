@@ -31,4 +31,12 @@ class ShiftScheduledEvent implements EventInterface
     {
         return 'shift-scheduled';
     }
+
+    /**
+     * @return Shift
+     */
+    public function getShift()
+    {
+        return $this->shift;
+    }
 }

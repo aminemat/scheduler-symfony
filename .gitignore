@@ -1,4 +1,4 @@
-/bin/phpunit
+/bin/*
 /app/config/parameters.yml
 /build/
 /phpunit.xml

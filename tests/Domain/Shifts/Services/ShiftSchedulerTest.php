@@ -60,7 +60,7 @@ class ShiftSchedulerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function throws_a_employee_not_found_exception_if_invalid_employee()
+    public function throws_an_employee_not_found_exception_if_invalid_employee()
     {
         $this->expectException(EmployeeNotFoundException::class);
         
@@ -74,27 +74,7 @@ class ShiftSchedulerTest extends \PHPUnit_Framework_TestCase
         
         $this->shiftScheduler->schedule($command);
     }
-
-    /**
-     * @test
-     */
-    public function throws_a_employee_not_available_exception_if_employee_unavailable()
-    {
-        $this->expectException(EmployeeNotAvailableException::class);
-
-        $this->employeeRepositoryStub->method('find')->willReturn(new Employee('foo', new Position(PositionEnum::CASHIER()), 'foo@bar.com'));
-        $this->employeeRepositoryStub->method('isAvailable')->willReturn(false);
-
-        $command = new ScheduleShiftCommand(
-            'foo',
-            new DateRange(
-                new DateTime('January 1st 2016 1:00 p.m'),
-                new DateTime('January 1st 2016 3:00 p.m')
-            )
-        );
-
-        $this->shiftScheduler->schedule($command);
-    }
+    
 
     /**
      * @test
@@ -111,6 +91,35 @@ class ShiftSchedulerTest extends \PHPUnit_Framework_TestCase
         $this->employeeRepositoryStub->method('isAvailable')->willReturn(true);        
         $this->eventDispatcherStub->method('dispatch')->with(new ShiftScheduledEvent($shift));
         
+        $command = new ScheduleShiftCommand(
+            'foo',
+            new DateRange(
+                $startDate,
+                $endDate
+            )
+        );
+        $this->shiftScheduler->schedule($command);
+    }
+
+    /**
+     * @test
+     */
+    public function marks_shift_as_pending_when_the_employee_is_no_available()
+    {
+        $employeeMock = new Employee('foo', new Position(PositionEnum::CASHIER()), 'foo@bar.com');
+        $startDate = new DateTime('January 1st 2016 1:00 p.m CST');
+        $endDate = new DateTime('January 1st 2016 6:00 p.m CST');
+
+        $shift = new Shift($employeeMock, $startDate, $endDate);
+
+        $this->employeeRepositoryStub->method('find')->willReturn($employeeMock);
+        $this->employeeRepositoryStub->method('isAvailable')->willReturn(false);
+        
+        $shift->markAsPending();
+        
+        $this->shiftRepositoryStub->method('save')->with($shift);
+        
+
         $command = new ScheduleShiftCommand(
             'foo',
             new DateRange(

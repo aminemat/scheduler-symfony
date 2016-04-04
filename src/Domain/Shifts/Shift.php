@@ -56,7 +56,12 @@ class Shift
 
     public function markAsPending()
     {
-        $this->status == ShiftStatus::PENDING();
+        $this->status = ShiftStatus::PENDING();
+    }
+    
+    public function isPending()
+    {
+        return $this->status === ShiftStatus::PENDING();
     }
 
     /**

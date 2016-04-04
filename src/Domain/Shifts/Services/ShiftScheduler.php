@@ -62,11 +62,12 @@ class ShiftScheduler
             throw new EmployeeNotFoundException();
         }
 
+        $shift = new Shift($employee, $startDate, $endDate);
+        
         if ( ! $this->employeeRepository->isAvailable($employee, $startDate, $endDate)) {
-            throw new EmployeeNotAvailableException();
+            $shift->markAsPending();
         }
         
-        $shift = new Shift($employee, $startDate, $endDate);
         $this->shiftRepository->save($shift);
         
         $this->eventDispatcher->dispatch(new ShiftScheduledEvent($shift));

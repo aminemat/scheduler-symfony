@@ -3,8 +3,9 @@ Feature: Scheduling shifts
   As a manager
   I need to be able to schedule a shift for an employee
   
+  
   Scenario: Scheduling a shift for an available employee
-    Given cashier "John doe" is available
+    Given employee "John doe" is available
     When I schedule a shift for "John doe" from "9am" to "5pm"
     Then my schedule should contain 1 shift for employee "John doe"
-    And a "shift-scheduled" event must be dispatched
+    And a "shift-scheduled" event must be dispatched 

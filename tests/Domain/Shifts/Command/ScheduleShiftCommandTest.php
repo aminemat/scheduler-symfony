@@ -13,7 +13,7 @@ class ScheduleShiftCommandTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function test_throws_an_exception_when_startdate_precedes_enddate()
+    public function throws_an_exception_when_startdate_precedes_enddate()
     {
         $this->expectException(InvalidArgumentException::class);
 
