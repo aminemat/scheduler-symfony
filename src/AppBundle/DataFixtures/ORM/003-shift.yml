@@ -1,4 +1,7 @@
 Domain\Shifts\Shift:
 
-    shift_morning_{1..5}:
-        __construct: ["@employee*", "<dateTimeBetween('today 7am CST', 'today 9am CST')>", "<dateTimeBetween('today 1pm CST', 'today 3pm CST')>"]
+    shift_morning_{1..50}:
+        __construct:
+            - "@employee*"
+            - "<dateTimeBetween('today 7am CST', 'today 9am CST')>" 
+            - "<dateTimeBetween('today 1pm CST', 'today 3pm CST')>"

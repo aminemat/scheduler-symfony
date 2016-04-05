@@ -1,5 +1,5 @@
 Domain\Employees\Employee:
                
-    employee_{1..10}:
+    employee_{1..100}:
         __construct: [<name()>, "@position*", <email()>]        
         
