@@ -4,6 +4,7 @@ namespace Domain\Shifts\Services;
 
 use Domain\Shifts\Commands\GetShiftsCommand;
 use Domain\Shifts\Contracts\ShiftRepositoryInterface;
+use Domain\Shifts\DateRange;
 use Domain\Shifts\ShiftCollection;
 
 class ShiftProvider
@@ -24,14 +25,14 @@ class ShiftProvider
     }
 
     /**
-     * @param GetShiftsCommand $getShiftsCommand
-     *
+     * @param DateRange $dateRange
      * @return ShiftCollection
+     *
      */
-    public function getShifts(GetShiftsCommand $getShiftsCommand)
+    public function getShifts(DateRange $dateRange)
     {
         return $this->shiftRepository->findAllInDateRange(
-            $getShiftsCommand->getDateRange()
+            $dateRange
         );
     }
 }

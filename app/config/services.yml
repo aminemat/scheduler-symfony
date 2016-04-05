@@ -30,7 +30,8 @@ services:
             
     event.dispatcher:
         class: AppBundle\Event\SymfonyEventDispatcher
-
+        arguments:
+            - "@event_dispatcher"   
     
     transformers.shift:
         class: AppBundle\Transformers\ShiftTransformer

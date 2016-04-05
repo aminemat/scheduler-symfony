@@ -25,14 +25,12 @@ class ShiftController extends Controller
         $shiftProvider = $this->get('domain.service.shift_provider');
 
         $shifts = $shiftProvider->getShifts(
-            new GetShiftsCommand(
-                new DateRange(
-                    new DateTime('today 8:30am CST'),
-                    new DateTime('today 5pm CST')
-                )                
+            new DateRange(
+                new DateTime('today'),
+                new DateTime('today tomorrow')
             )
         );
-        
+
         $fractal = new Manager();
 
         return new JsonResponse(
@@ -59,28 +57,5 @@ class ShiftController extends Controller
         
         return new Response();
     }
-
-    /**
-     * @Route("/", name="homepage")
-     */
-    public function badIndexAction(Request $request)
-    {
-//        $shiftScheduler = new ShiftScheduler(
-//            new DoctrineShiftRepository(
-//                new EntityManager(
-//                    $connection,
-//                    $config,
-//                    $eventManger
-//                )
-//            ),
-//            new DoctrineEmployeeRepository(
-//                new EntityManager(
-//                    $connection,
-//                    $config,
-//                    $eventManger
-//                )                
-//            ),
-//            new EventDispatcher()
-//        );
-    }    
+    
 }
